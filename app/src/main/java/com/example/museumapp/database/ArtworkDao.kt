@@ -13,4 +13,7 @@ interface ArtworkDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(artworks: List<ArtworkEntity>)
+
+    @Query("DELETE FROM artworks")
+    suspend fun deleteAll()
 }

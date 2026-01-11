@@ -25,12 +25,18 @@ class ArtworkRepository(private val dao: ArtworkDao, private val api: EuropeanaA
 
     suspend fun refreshArtworks(query: String) {
         try {
+            Log.d("Repo", "Starting search for: $query")
             val response = api.searchArtworks("ggslenste", query)
+            Log.d("Repo", "Items found: ${response.items.size}")
             val entities = response.items.map { it.toEntity() }
+
+            dao.deleteAll()
+
             dao.insertAll(entities)
         } catch (e: Exception) {
             // Network error: Do nothing, user sees cached data
             Log.e("Repository", "Error fetching data: ${e.message}")
+            e.printStackTrace()
         }
     }
 }
