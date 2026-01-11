@@ -16,20 +16,29 @@ import com.example.museumapp.ui.theme.MuseumAppTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            MuseumAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+            val navController = rememberNavController()
+            val viewModel: ArtworkViewModel = viewModel() // Use simpler viewModel() factory or Hilt
+
+            NavHost(navController = navController, startDestination = "list") {
+                composable("list") {
+                    ArtworkListScreen(viewModel) { id ->
+                        // Encode the ID to handle slashes
+                        val encodedId = java.net.URLEncoder.encode(id, "UTF-8")
+                        navController.navigate("details/$encodedId")
+                    }
+                }
+                composable(
+                    "details/{artworkId}",
+                    arguments = listOf(navArgument("artworkId") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val artworkId = backStackEntry.arguments?.getString("artworkId") ?: ""
+                    ArtworkDetailScreen(artworkId)
                 }
             }
         }
     }
 }
-
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
