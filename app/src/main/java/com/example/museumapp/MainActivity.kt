@@ -11,7 +11,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.museumapp.ui.screens.ArtworkDetailScreen
+import com.example.museumapp.ui.screens.ArtworkListScreen
 import com.example.museumapp.ui.theme.MuseumAppTheme
+import com.example.museumapp.viewmodel.ArtworkViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
