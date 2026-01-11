@@ -21,7 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.museumapp.model.ArtworkDto
+import com.example.museumapp.database.ArtworkEntity
 import com.example.museumapp.viewmodel.ArtworkViewModel
 
 @Composable
@@ -43,7 +43,7 @@ fun ArtworkListScreen(
 }
 
 @Composable
-fun ArtworkRow(artwork: ArtworkDto, onClick: (String) -> Unit) {
+fun ArtworkRow(artwork: ArtworkEntity, onClick: (String) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,14 +54,20 @@ fun ArtworkRow(artwork: ArtworkDto, onClick: (String) -> Unit) {
         Row(modifier = Modifier.padding(16.dp)) {
             // Image Loading
             AsyncImage(
-                model = artwork.edmPreview?.firstOrNull(),
+                model = artwork.imageUrl,
                 contentDescription = null,
                 modifier = Modifier.size(80.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column {
-                Text(text = artwork.title?.firstOrNull() ?: "Unknown Title", style = MaterialTheme.typography.titleMedium)
-                Text(text = artwork.dcCreator?.firstOrNull() ?: "Unknown Artist", style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    text = artwork.title,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = artwork.artist,
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
     }
