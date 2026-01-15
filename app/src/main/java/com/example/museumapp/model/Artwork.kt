@@ -12,5 +12,6 @@ data class ArtworkDto(
     val dcDescription: List<String>?,   // Description text
     val dcCreator: List<String>?,       // Artist/Author
     val dataProvider: List<String>?,    // Museum/Provider
-    val year: List<String>?             // Creation year
+    val year: List<String>?,             // Creation year
+    val country: List<String>?,        // Country of origin
 )

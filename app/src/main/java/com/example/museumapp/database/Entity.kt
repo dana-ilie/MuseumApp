@@ -10,12 +10,11 @@ data class ArtworkEntity(
     val title: String,
     val artist: String,
     val imageUrl: String,
-
-    // --- NEW COLUMNS ---
     val description: String,
     val year: String,
     val type: String,
-    val provider: String
+    val provider: String,
+    val country: String
 )
 
 fun ArtworkDto.toEntity(): ArtworkEntity {
@@ -31,7 +30,7 @@ fun ArtworkDto.toEntity(): ArtworkEntity {
 
         type = this.type ?: "Unknown",
 
-        // Provider (Museum name)
-        provider = this.dataProvider?.firstOrNull() ?: ""
+        provider = this.dataProvider?.firstOrNull() ?: "",
+        country = this.country?.firstOrNull() ?: ""
     )
 }
