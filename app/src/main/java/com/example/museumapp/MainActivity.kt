@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                         arguments = listOf(navArgument("artworkId") { type = NavType.StringType })
                     ) { backStackEntry ->
                         val artworkId = backStackEntry.arguments?.getString("artworkId") ?: ""
-                        ArtworkDetailScreen(artworkId)
+                        ArtworkDetailScreen(artworkId, viewModel)
                     }
                 }
             }

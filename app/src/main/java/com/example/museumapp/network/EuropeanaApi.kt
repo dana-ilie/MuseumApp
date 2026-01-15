@@ -11,7 +11,7 @@ interface EuropeanaApi {
     suspend fun searchArtworks(
         @Query("wskey") apiKey: String,
         @Query("query") query: String,
-        @Query("rows") rows: Int = 20
+        @Query("rows") rows: Int = 50
     ): EuropeanaResponse
 }
 

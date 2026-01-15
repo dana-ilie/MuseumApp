@@ -19,12 +19,16 @@ class ArtworkViewModel(private val repository: ArtworkRepository) : ViewModel() 
         )
 
     init {
-        loadArtworks("Leonardo da Vinci")
+        loadArtworks("Van Gogh")
     }
 
     fun loadArtworks(query: String) {
         viewModelScope.launch {
             repository.refreshArtworks(query)
         }
+    }
+
+    fun getArtworkById(id: String): ArtworkEntity? {
+        return artworks.value.find { it.id == id }
     }
 }

@@ -9,15 +9,29 @@ data class ArtworkEntity(
     @PrimaryKey val id: String,
     val title: String,
     val artist: String,
-    val imageUrl: String
+    val imageUrl: String,
+
+    // --- NEW COLUMNS ---
+    val description: String,
+    val year: String,
+    val type: String,
+    val provider: String
 )
 
-// Extension function to map DTO to Entity
 fun ArtworkDto.toEntity(): ArtworkEntity {
     return ArtworkEntity(
         id = this.id,
-        title = this.title?.firstOrNull() ?: "Unknown",
-        artist = this.dcCreator?.firstOrNull() ?: "Unknown",
-        imageUrl = this.edmPreview?.firstOrNull() ?: ""
+        title = this.title?.firstOrNull() ?: "Untitled",
+        artist = this.dcCreator?.firstOrNull() ?: "Unknown Artist",
+        imageUrl = this.edmPreview?.firstOrNull() ?: "",
+
+        description = this.dcDescription?.firstOrNull() ?: "No description available.",
+
+        year = this.year?.firstOrNull() ?: "",
+
+        type = this.type ?: "Unknown",
+
+        // Provider (Museum name)
+        provider = this.dataProvider?.firstOrNull() ?: ""
     )
 }
